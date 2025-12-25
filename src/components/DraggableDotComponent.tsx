@@ -2,7 +2,7 @@ import * as THREE from "three";
 import Draggable from "react-draggable";
 import { useEffect, useLayoutEffect, useRef } from "react";
 import type { Dispatch, SetStateAction } from "react";
-import { normalToRawScreen, normalizeRawScreen } from "../util/coords";
+import { normalToRawScreen, rawScreenToNormal } from "../util/coords";
 
 export const DraggableDot = ({
   dragPos,
@@ -27,7 +27,7 @@ export const DraggableDot = ({
       if (e.button !== 0 || e.target !== canvasRef.current) return;
 
       // update state immediately
-      const newPos = normalizeRawScreen(
+      const newPos = rawScreenToNormal(
         new THREE.Vector2(e.clientX, e.clientY - dim.y),
         dim
       );
@@ -86,7 +86,7 @@ export const DraggableDot = ({
       nodeRef={ref}
       position={normalToRawScreen(new THREE.Vector2(dragPos.x, dragPos.y), dim)}
       onDrag={(_, data) => {
-        setDragPos(normalizeRawScreen(new THREE.Vector2(data.x, data.y), dim));
+        setDragPos(rawScreenToNormal(new THREE.Vector2(data.x, data.y), dim));
       }}
       bounds="parent"
     >

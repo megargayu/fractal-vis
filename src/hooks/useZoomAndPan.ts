@@ -6,7 +6,7 @@ import {
   type SetStateAction,
 } from "react";
 import * as THREE from "three";
-import { normalizeRawOffset } from "../util/coords";
+import { rawOffsetToNormal } from "../util/coords";
 
 const useZoomAndPan = (
   zoom: number,
@@ -38,7 +38,7 @@ const useZoomAndPan = (
       const dy = e.clientY - lastPos.current.y;
       lastPos.current = { x: e.clientX, y: e.clientY };
 
-      const toAdd = normalizeRawOffset(new THREE.Vector2(dx, dy));
+      const toAdd = rawOffsetToNormal(new THREE.Vector2(dx, dy));
 
       setOffset(
         (prev) => new THREE.Vector2(prev.x + toAdd.x, prev.y + toAdd.y)
@@ -65,7 +65,7 @@ const useZoomAndPan = (
     const handleZoom = (e: WheelEvent) => {
       e.preventDefault();
 
-      const zoomFactor = Math.exp(-e.deltaY * 0.001);
+      const zoomFactor = Math.exp(-e.deltaY * 0.0005);
 
       setZoom((prevZoom) => prevZoom * zoomFactor);
 
@@ -88,7 +88,7 @@ const useZoomAndPan = (
     return () => ref.current?.removeEventListener("wheel", handleZoom);
   });
 
-  return { zoom, offset, setZoom, setOffset };
+  return { offset, setOffset };
 };
 
 export default useZoomAndPan;
