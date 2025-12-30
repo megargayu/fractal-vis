@@ -224,7 +224,7 @@ const JuliaShaderComponent = ({
   setShaderState,
   shaderProps,
 }: ShaderComponentProps<JuliaShaderState, JuliaShaderPropsResult>) => {
-  const { zoom, scale, dim, power } = shaderState;
+  const { zoom, scale, dim, power, dragPos } = shaderState;
   const { c, shaderOffset } = shaderProps;
 
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
@@ -265,6 +265,20 @@ const JuliaShaderComponent = ({
         zoom={shaderState.zoom}
         dim={shaderState.dim}
       />
+      {/* <div className="absolute right-4 top-4 text-center bg-black/70 p-3 rounded-xl w-52">
+        <h1 className="text-white font-serif font-bold">fractal-vis v0.0.1</h1>
+        <h1 className="text-white font-mono">
+          c: {formatNumber(c.x, 3)}, {formatNumber(c.y, 3)}
+        </h1>
+        <h1 className="text-white font-mono">zoom: {formatNumber(zoom, 3)}x</h1>
+        <h1 className="text-white font-mono">
+          offset: {formatNumber(shaderOffset.x, 3)},{" "}
+          {formatNumber(shaderOffset.y, 3)}
+        </h1>
+        <h1 className="text-red-400 font-mono">
+          raw: {formatNumber(dragPos.x, 3)}, {formatNumber(dragPos.y, 3)}
+        </h1>
+      </div> */}
     </>
   );
 };
@@ -273,7 +287,7 @@ const JuliaShader: Shader<JuliaShaderState, JuliaShaderPropsResult> = {
   shaderInfo: JuliaShaderInfo,
   shaderDefaultState: JuliaShaderDefaultState,
   shaderProps: JuliaShaderProps,
-  shaderComponent: JuliaShaderComponent,
+  ShaderComponent: JuliaShaderComponent,
 };
 
 export default JuliaShader;

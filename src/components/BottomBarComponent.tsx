@@ -90,16 +90,19 @@ export const ButtonPopoverComponent = ({
   );
 };
 
-const BottomBarComponent = ({
+const BottomBarComponent = <
+  S extends ShaderState,
+  R extends ShaderPropsResult
+>({
   shaderInfo,
   shaderState,
   setShaderState,
   shaderProps,
 }: {
-  shaderInfo: ShaderInfo;
-  shaderState: ShaderState;
-  setShaderState: Dispatch<SetStateAction<ShaderState>>;
-  shaderProps: ShaderPropsResult;
+  shaderInfo: ShaderInfo<S, R>;
+  shaderState: S;
+  setShaderState: Dispatch<SetStateAction<S>>;
+  shaderProps: R;
 }) => {
   return (
     <div className="absolute bottom-8 max-w-3/4 rounded-lg bg-black opacity-90 hover:opacity-100 p-3 flex space-x-3 items-center left-1/2 -translate-x-1/2 h-15">

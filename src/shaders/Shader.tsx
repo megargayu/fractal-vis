@@ -5,8 +5,8 @@ export type ShaderState = Record<string, any>; // eslint-disable-line @typescrip
 export type ShaderPropsResult = Record<string, any>; // eslint-disable-line @typescript-eslint/no-explicit-any
 
 export interface ShaderInfo<
-  S extends ShaderState = ShaderState,
-  R extends ShaderPropsResult = ShaderPropsResult
+  S extends ShaderState,
+  R extends ShaderPropsResult
 > {
   name: string;
   description: string;
@@ -23,17 +23,17 @@ export interface ShaderInfo<
 }
 
 export type ShaderComponentProps<
-  S extends ShaderState = ShaderState,
-  R extends ShaderPropsResult = ShaderPropsResult
+  S extends ShaderState,
+  R extends ShaderPropsResult
 > = {
   shaderState: S;
   setShaderState: Dispatch<SetStateAction<S>>;
   shaderProps: R;
 };
 
-export interface Shader<S extends ShaderState = ShaderState, R extends ShaderPropsResult = ShaderPropsResult> {
+export interface Shader<S extends ShaderState, R extends ShaderPropsResult> {
   shaderInfo: ShaderInfo<S, R>;
   shaderDefaultState: S;
   shaderProps: (shaderState: S) => R;
-  shaderComponent: React.FC<ShaderComponentProps<S, R>>;
+  ShaderComponent: React.FC<ShaderComponentProps<S, R>>;
 }

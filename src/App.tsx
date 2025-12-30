@@ -24,29 +24,11 @@ const App = () => {
       className="w-full h-full bg-slate-950 relative overflow-hidden"
       onContextMenu={(e) => e.preventDefault()}
     >
-      <JuliaShader.shaderComponent
+      <JuliaShader.ShaderComponent
         shaderState={shaderState}
         setShaderState={setShaderState}
         shaderProps={shaderProps}
       />
-      {/* <div className="absolute right-4 top-4 text-center bg-black/70 p-3 rounded-xl w-52">
-          <h1 className="text-white font-serif font-bold">
-            fractal-vis v0.0.1
-          </h1>
-          <h1 className="text-white font-mono">
-            c: {formatNumber(c.x, 3)}, {formatNumber(c.y, 3)}
-          </h1>
-          <h1 className="text-white font-mono">
-            zoom: {formatNumber(zoom, 3)}x
-          </h1>
-          <h1 className="text-white font-mono">
-            offset: {formatNumber(shaderOffset.x, 3)},{" "}
-            {formatNumber(shaderOffset.y, 3)}
-          </h1>
-          <h1 className="text-red-400 font-mono">
-            raw: {formatNumber(dragPos.x, 3)}, {formatNumber(dragPos.y, 3)}
-          </h1>
-        </div> */}
       <BottomBarComponent
         shaderInfo={JuliaShader.shaderInfo}
         shaderState={shaderState}
