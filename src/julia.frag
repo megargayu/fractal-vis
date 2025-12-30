@@ -27,7 +27,13 @@ const vec4 mapping[16] = vec4[](
   vec4(106, 52, 3, 255) / 255.0
 );
 
+vec2 square(vec2 z) {
+  return vec2(z.x * z.x - z.y * z.y, 2.0 * z.x * z.y);
+}
+
 vec2 complex_pow_fractional(vec2 z, float p) {
+    //if (p == 2.0) return square(z);
+    
     float r = length(z);
     float theta = atan(z.y, z.x); // Range [-PI, PI]
 
@@ -38,6 +44,7 @@ vec2 complex_pow_fractional(vec2 z, float p) {
     // Convert back to Cartesian
     return vec2(new_r * cos(new_theta), new_r * sin(new_theta));
 }
+
 
 int run(vec2 coord) {
   vec2 normC = c;

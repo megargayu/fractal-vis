@@ -1,7 +1,6 @@
 import {
   useEffect,
   useRef,
-  useState,
   type Dispatch,
   type SetStateAction,
 } from "react";
@@ -9,16 +8,11 @@ import * as THREE from "three";
 import { rawOffsetToNormal } from "../util/coords";
 
 const useZoomAndPan = (
-  zoom: number,
   setZoom: Dispatch<SetStateAction<number>>,
+  setOffset: Dispatch<SetStateAction<THREE.Vector2>>,
   scale: THREE.Vector2,
   dim: THREE.Vector2
-): {
-  offset: THREE.Vector2;
-  setOffset: Dispatch<SetStateAction<THREE.Vector2>>;
-} => {
-  const [offset, setOffset] = useState(() => new THREE.Vector2(0, 0));
-
+): void => {
   const dragging = useRef(false);
   const lastPos = useRef({ x: 0, y: 0 });
 
@@ -59,7 +53,7 @@ const useZoomAndPan = (
       window.removeEventListener("pointermove", onPointerMove);
       window.removeEventListener("pointerup", onPointerUp);
     };
-  }, [scale]);
+  }, [scale, setOffset]);
 
   useEffect(() => {
     const handleZoom = (e: WheelEvent) => {
@@ -87,8 +81,6 @@ const useZoomAndPan = (
 
     return () => ref.current?.removeEventListener("wheel", handleZoom);
   });
-
-  return { offset, setOffset };
 };
 
 export default useZoomAndPan;

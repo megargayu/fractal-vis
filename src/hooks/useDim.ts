@@ -1,4 +1,9 @@
-import { useEffect, useState, type RefObject } from "react";
+import {
+  useEffect,
+  type Dispatch,
+  type RefObject,
+  type SetStateAction,
+} from "react";
 import * as THREE from "three";
 
 const getElem = (
@@ -22,17 +27,16 @@ export const getDim = (element: HTMLElement | null): THREE.Vector2 => {
 const useDim = (
   elementRef: RefObject<HTMLElement | null>,
   zoom: number,
+  setDim: Dispatch<SetStateAction<THREE.Vector2>>,
+  setScale: Dispatch<SetStateAction<THREE.Vector2>>,
   parent: boolean = false
 ) => {
-  const [dim, setDim] = useState<THREE.Vector2>(new THREE.Vector2());
-  const [scale, setScale] = useState(() => new THREE.Vector2(2, 2));
-
   const minScale = 2 / zoom;
   const elem = getElem(elementRef, parent);
 
   useEffect(() => {
     setDim(getDim(elem));
-  }, [elem]);
+  }, [elem, setDim]);
 
   useEffect(() => {
     const updateDim = () => {
@@ -61,9 +65,7 @@ const useDim = (
     return () => {
       resizeObserver.unobserve(elem);
     };
-  }, [minScale, elem]);
-
-  return [dim, scale];
+  }, [minScale, elem, setDim, setScale]);
 };
 
 export default useDim;

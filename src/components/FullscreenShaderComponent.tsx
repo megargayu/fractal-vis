@@ -17,13 +17,9 @@ export const vertexShader = `
 `;
 
 const FullscreenShader = ({
-  c,
-  scale,
-  offset,
+  uniforms,
 }: {
-  c: THREE.Vector2;
-  scale: THREE.Vector2;
-  offset: THREE.Vector2;
+  uniforms: THREE.ShaderMaterialParameters["uniforms"];
 }) => {
   const viewport = useThree((state) => state.viewport);
 
@@ -32,16 +28,11 @@ const FullscreenShader = ({
       glslVersion: THREE.GLSL3,
       vertexShader,
       fragmentShader,
-      uniforms: {
-        c: { value: c },
-        scale: { value: scale },
-        offset: { value: offset },
-        power: { value: 2 },
-      },
+      uniforms,
       depthWrite: false,
       depthTest: false,
     });
-  }, [scale, c, offset]);
+  }, [uniforms]);
 
   return (
     // plane covers NDC when using size 2x2 and centered camera; frustumCulled false keeps it always rendered
